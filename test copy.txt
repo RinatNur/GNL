@@ -1,4 +1,0 @@
-1. First line = 18hththth
-2. Second line = 19
-3. Third line of text = 26
-4. Fourth line num = 23

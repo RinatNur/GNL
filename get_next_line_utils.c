@@ -6,11 +6,47 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 18:35:10 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/08 18:04:02 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/11 20:31:56 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void		*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	int		i;
+
+	i = 0;
+	if (n == 0 || dest == src)
+		return (dest);
+	while (n--)
+	{
+		*((unsigned char *)dest + i) = *((unsigned char *)src + i);
+		i++;
+	}
+	return (dest);
+}
+
+
+size_t		ft_strlcpy(char *dst, const char *src, size_t size)
+{
+	size_t		src_len;
+	size_t		len;
+
+	if (!src)
+		return (0);
+	src_len = ft_strlen(src);
+	if (size)
+	{
+		if (src_len >= size)
+			len = size - 1;
+		else
+			len = src_len;
+		ft_memcpy(dst, src, len);
+		dst[len] = '\0';
+	}
+	return (src_len);
+}
 
 char		*ft_strchr(const char *s, int c)
 {
@@ -32,7 +68,7 @@ char	*ft_strnew(size_t size)
 {
 	char	*str;
 
-	if (!(str = (char *)malloc(sizeof(char) * size + 1)))
+	if (!(str = (char *)malloc(sizeof(char) * (size + 1))))
 		return (NULL);
 	str[size] = '\0';
 	while (size--)
@@ -45,6 +81,8 @@ size_t		ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
+	if (NULL == s)
+		return (NULL);
 	while (s[i] != '\0')
 		i++;
 	return (i);
