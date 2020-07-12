@@ -12,42 +12,6 @@
 
 #include "get_next_line.h"
 
-void		*ft_memcpy(void *dest, const void *src, size_t n)
-{
-	int		i;
-
-	i = 0;
-	if (n == 0 || dest == src)
-		return (dest);
-	while (n--)
-	{
-		*((unsigned char *)dest + i) = *((unsigned char *)src + i);
-		i++;
-	}
-	return (dest);
-}
-
-
-size_t		ft_strlcpy(char *dst, const char *src, size_t size)
-{
-	size_t		src_len;
-	size_t		len;
-
-	if (!src)
-		return (0);
-	src_len = ft_strlen(src);
-	if (size)
-	{
-		if (src_len >= size)
-			len = size - 1;
-		else
-			len = src_len;
-		ft_memcpy(dst, src, len);
-		dst[len] = '\0';
-	}
-	return (src_len);
-}
-
 char		*ft_strchr(const char *s, int c)
 {
 	int		i;
