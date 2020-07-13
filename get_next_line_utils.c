@@ -6,7 +6,7 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 18:35:10 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/11 20:31:56 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/12 17:59:21 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ size_t		ft_strlen(const char *s)
 
 	i = 0;
 	if (NULL == s)
-		return (NULL);
+		return (0);
 	while (s[i] != '\0')
 		i++;
 	return (i);
