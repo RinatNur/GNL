@@ -6,7 +6,7 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 18:35:10 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/12 17:59:21 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/14 13:48:06 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ char	*ft_strdup(const char *str)
 	int		i;
 
 	i = 0;
+//	if (!str)
+//		free(str);
 	while (str[i])
 		i++;
 	buff = (char *)malloc(sizeof(*str) * (i + 1));

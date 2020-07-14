@@ -1,11 +1,14 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 9999
+# endif
+
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <string.h>
 
 char		*ft_strdup(const char *str);
 int			get_next_line(int fd, char **line);
