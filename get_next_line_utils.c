@@ -6,7 +6,7 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 18:35:10 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/14 13:48:06 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/14 20:37:13 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char		*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strnew(size_t size)
+char		*ft_strnew(size_t size)
 {
 	char	*str;
 
@@ -47,7 +47,7 @@ size_t		ft_strlen(const char *s)
 	i = 0;
 	if (NULL == s)
 		return (0);
-	while (s[i] != '\0')
+	while (s[i] && s[i] != '\0')
 		i++;
 	return (i);
 }
@@ -81,14 +81,12 @@ char		*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-char	*ft_strdup(const char *str)
+char		*ft_strdup(const char *str)
 {
 	char	*buff;
 	int		i;
 
 	i = 0;
-//	if (!str)
-//		free(str);
 	while (str[i])
 		i++;
 	buff = (char *)malloc(sizeof(*str) * (i + 1));
