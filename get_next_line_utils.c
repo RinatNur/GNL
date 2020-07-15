@@ -6,7 +6,7 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 18:35:10 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/14 20:37:13 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/15 21:23:43 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,6 @@ char		*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char		*ft_strnew(size_t size)
-{
-	char	*str;
-
-	if (!(str = (char *)malloc(sizeof(char) * (size + 1))))
-		return (NULL);
-	str[size] = '\0';
-	while (size--)
-		str[size] = '\0';
-	return (str);
-}
-
 size_t		ft_strlen(const char *s)
 {
 	size_t	i;
@@ -52,7 +40,13 @@ size_t		ft_strlen(const char *s)
 	return (i);
 }
 
-char		*ft_strjoin(char const *s1, char const *s2)
+int ft_free(char *s)
+{
+	free(s);
+	return 1;
+}
+
+char		*ft_strjoin(char  *s1, char const *s2)
 {
 	char		*str;
 	size_t		str_len;
@@ -61,12 +55,9 @@ char		*ft_strjoin(char const *s1, char const *s2)
 
 	i = 0;
 	j = 0;
-	if (!s1 || !s2)
-		return (NULL);
 	str_len = ft_strlen(s1) + ft_strlen(s2);
-	str = (char *)malloc(sizeof(char) * (str_len + 1));
-	if (!str)
-		return (NULL);
+	if (!(str = (char *)malloc(sizeof(char) * (str_len + 1))))
+		return (ft_free(s1) ? NULL : 0);
 	while (s1[i])
 	{
 		str[i] = s1[i];
@@ -78,10 +69,11 @@ char		*ft_strjoin(char const *s1, char const *s2)
 		j++;
 	}
 	str[str_len] = '\0';
+	free(s1);
 	return (str);
 }
 
-char		*ft_strdup(const char *str)
+char		*ft_strdup(char *str)
 {
 	char	*buff;
 	int		i;
@@ -89,9 +81,8 @@ char		*ft_strdup(const char *str)
 	i = 0;
 	while (str[i])
 		i++;
-	buff = (char *)malloc(sizeof(*str) * (i + 1));
-	if (buff == NULL)
-		return (NULL);
+	if (!(buff = (char *)malloc(sizeof(*str) * (i + 1))))
+		return (ft_free(str) ? NULL : 0);
 	i = 0;
 	while (str[i])
 	{
@@ -99,5 +90,7 @@ char		*ft_strdup(const char *str)
 		i++;
 	}
 	buff[i] = '\0';
+//	if (str)
+//		free(str);
 	return (buff);
 }

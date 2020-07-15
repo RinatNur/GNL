@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/14 20:33:35 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/15 20:54:27 by jheat            ###   ########.fr       */
+/*   Created: 2020/07/14 20:33:51 by jheat             #+#    #+#             */
+/*   Updated: 2020/07/15 18:15:47 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "get_next_line.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
-# endif
+int		main(void)
+{
+	int		fd;
+	char	*line = NULL;
+	int		i = 0;
 
-# include <stdlib.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <unistd.h>
+	fd = open("../alphabet", O_RDONLY);
 
-char		*ft_strdup(char *str);
-int			get_next_line(int fd, char **line);
-char		*ft_strjoin(char *s1, char const *s2);
-size_t		ft_strlen(const char *s);
-char		*ft_strchr(const char *s, int c);
+	if (fd == -1)
+	{
+		printf("file not open\n");
+		return (1);
+	}
 
-#endif
+	while (((get_next_line(fd, &line))) > 0)
+	{
+		printf("%d. %s\n",++i, line);
+		free(line);
+	}
+	printf("%d. %s\n",i, line);
+	free(line);
+	return (0);
+}
