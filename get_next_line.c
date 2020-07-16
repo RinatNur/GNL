@@ -6,44 +6,62 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 18:10:35 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/15 21:02:22 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/16 22:45:08 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char		*check_buf_tail(char **line, char **buf_tail)
+static char		*check(char **line, char **buf_tail)
 {
+	char		flag;
 	char		*p;
 	char		*p_l;
-	char 		flag;
 
-	flag = 1;
 	p = NULL;
+	flag = 1;
+	if ((p = ft_strchr(*buf_tail, '\n')))
+	{
+		*p = '\0';
+		if (!(p_l = ft_strdup(++p, 0)))
+			return (p = &flag);
+		if (!(*line = ft_strdup(*buf_tail, 1)))
+		{
+			free(p_l);
+			return (p = &flag);
+		}
+		if (!(*buf_tail = ft_strdup(p_l, 1)))
+		{
+			free(*line);
+			return (p = &flag);
+		}
+	}
+	return (p);
+}
+
+static char		*check_buf_tail(char **line, char **buf_tail)
+{
+	char		flag;
+	char		*p;
+
+	p = NULL;
+	flag = 1;
 	if (*buf_tail)
 	{
-		if ((p = ft_strchr(*buf_tail, '\n')))
+		if ((p = check(line, &(*buf_tail))) && *p == 1)
+			return (p);
+		else if (NULL == p)
 		{
-			*p = '\0';
-			if (!(*line = ft_strdup(*buf_tail)))
-			{
-				free(buf_tail);
+			if (!(*line = ft_strdup(*buf_tail, 1)))
 				return (p = &flag);
-			}
-			p_l = ft_strdup(++p);
-			free(*buf_tail);
-			*buf_tail = ft_strdup(p_l);
-			free(p_l);
-		}
-		else
-		{
-			*line = ft_strdup(*buf_tail);
-			free(*buf_tail);
 			*buf_tail = NULL;
 		}
 	}
 	else
-		*line = ft_strdup("");
+	{
+		if (!(*line = ft_strdup("", 0)))
+			return (p = &flag);
+	}
 	return (p);
 }
 
@@ -63,9 +81,14 @@ int				get_next_line(int fd, char **line)
 		if ((p = ft_strchr(buf, '\n')))
 		{
 			*p = '\0';
-			buf_tail = ft_strdup(++p);
+			if (!(buf_tail = ft_strdup(++p, 0)))
+			{
+				free(*line);
+				return (-1);
+			}
 		}
-		*line = ft_strjoin(*line, buf);
+		if (!(*line = ft_strjoin(*line, buf)))
+			return (-1);
 	}
 	return (num_of_reading_bytes || ft_strlen(buf_tail) || p ? 1 : 0);
 }

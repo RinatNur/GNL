@@ -6,7 +6,7 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 18:35:10 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/15 21:23:43 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/16 22:45:52 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,14 @@ size_t		ft_strlen(const char *s)
 	return (i);
 }
 
-int ft_free(char *s)
+int			ft_free(char *s, int flag)
 {
-	free(s);
-	return 1;
+	if (flag)
+		free(s);
+	return (1);
 }
 
-char		*ft_strjoin(char  *s1, char const *s2)
+char		*ft_strjoin(char *s1, char const *s2)
 {
 	char		*str;
 	size_t		str_len;
@@ -56,8 +57,8 @@ char		*ft_strjoin(char  *s1, char const *s2)
 	i = 0;
 	j = 0;
 	str_len = ft_strlen(s1) + ft_strlen(s2);
-	if (!(str = (char *)malloc(sizeof(char) * (str_len + 1))))
-		return (ft_free(s1) ? NULL : 0);
+	if (!(str = (char *)malloc(str_len + 1)))
+		return (ft_free(s1, 1) ? NULL : 0);
 	while (s1[i])
 	{
 		str[i] = s1[i];
@@ -73,7 +74,7 @@ char		*ft_strjoin(char  *s1, char const *s2)
 	return (str);
 }
 
-char		*ft_strdup(char *str)
+char		*ft_strdup(char *str, int flag)
 {
 	char	*buff;
 	int		i;
@@ -82,7 +83,7 @@ char		*ft_strdup(char *str)
 	while (str[i])
 		i++;
 	if (!(buff = (char *)malloc(sizeof(*str) * (i + 1))))
-		return (ft_free(str) ? NULL : 0);
+		return (ft_free(str, flag) ? NULL : 0);
 	i = 0;
 	while (str[i])
 	{
@@ -90,7 +91,7 @@ char		*ft_strdup(char *str)
 		i++;
 	}
 	buff[i] = '\0';
-//	if (str)
-//		free(str);
+	if (flag)
+		free(str);
 	return (buff);
 }
