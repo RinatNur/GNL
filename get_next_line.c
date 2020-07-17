@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-static char		*check(char **line, char **buf_tail)
+static char		*check_new_line(char **line, char **buf_tail)
 {
 	char		flag;
 	char		*p;
@@ -48,7 +48,7 @@ static char		*check_buf_tail(char **line, char **buf_tail)
 	flag = 1;
 	if (*buf_tail)
 	{
-		if ((p = check(line, &(*buf_tail))) && *p == 1)
+		if ((p = check_new_line(line, &(*buf_tail))) && *p == 1)
 			return (p);
 		else if (NULL == p)
 		{
